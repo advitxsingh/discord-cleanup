@@ -1,0 +1,264 @@
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/geist-sans@5/index.css');
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/geist-sans@5/700.css');
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/geist-sans@5/900.css');
+
+:root {
+  --bg: #000000;
+  --card-bg: #0a0a0a;
+  --border: #1a1a1a;
+  --accent: #5865f2;
+  --text: #ffffff;
+  --text-dim: #888888;
+  --danger: #ff4444;
+  --success: #00c853;
+  --font-main: 'Geist Sans', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box !important;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-main) !important;
+}
+
+body {
+  background-color: var(--bg) !important;
+  color: var(--text) !important;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 500px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.header h1 {
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.btn-help {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+/* Cards */
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+/* Inputs & Labels */
+.field-group {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.input-field {
+  width: 100%;
+  background: #000;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  color: white;
+  font-size: 14px;
+  outline: none;
+}
+
+.input-field:focus {
+  border-color: var(--accent);
+}
+
+/* Buttons */
+.btn-primary {
+  width: 100%;
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.btn-danger {
+  background-color: var(--danger);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* SERVER LIST FIX */
+.guild-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.guild-item {
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 10px !important;
+  background: transparent !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  color: white !important;
+  cursor: pointer !important;
+  transition: all 0.2s;
+  text-align: left !important;
+}
+
+.guild-item:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: var(--text-dim) !important;
+}
+
+.guild-item.selected {
+  border-color: var(--accent) !important;
+  background: rgba(88, 101, 242, 0.1) !important;
+}
+
+.guild-info {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  pointer-events: none;
+}
+
+.guild-icon {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  border-radius: 6px !important;
+  background: #1a1a1a !important;
+  object-fit: cover !important;
+}
+
+.guild-info span {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Stats & Log */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+}
+
+.stat-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.stat-value {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.log-box {
+  background: #000;
+  border: 1px solid var(--border);
+  padding: 16px;
+  border-radius: 8px;
+  height: 250px;
+  overflow-y: auto;
+  font-family: monospace !important;
+  /* Keep monospace for logs if preferred, or Geist */
+}
+
+/* Help UI */
+.help-content {
+  background: rgba(88, 101, 242, 0.05);
+  border: 1px solid rgba(88, 101, 242, 0.2);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+kbd {
+  background: #222;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-dim);
+}
