@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import {
   ShieldAlert,
   Trash2,
@@ -36,6 +36,7 @@ function App() {
   const [showHelp, setShowHelp] = useState(false);
 
   const logEndRef = useRef(null);
+  const stopRequestedRef = useRef(false);
 
   const addLog = (message, type = 'info') => {
     setLogs(prev => [...prev.slice(-99), { id: Date.now(), message, type, time: new Date().toLocaleTimeString('en-US', { hour12: false }) }]);
@@ -67,15 +68,12 @@ function App() {
 
   const startPurge = async () => {
     setIsRunning(true);
+    stopRequestedRef.current = false;
     setStats({ total: 0, deleted: 0, failed: 0 });
     setLogs([]);
     addLog(`Target: ${selectedGuild.name}`, 'info');
 
-    let stopRequested = false;
-
-    while (true) {
-      if (!isRunning && stats.total > 0) break;
-
+    while (!stopRequestedRef.current) {
       try {
         addLog(`Searching messages...`, 'info');
         const searchData = await DiscordService.searchMessages(token, selectedGuild.id, user.id, 0);
@@ -96,9 +94,8 @@ function App() {
         }
 
         for (const msg of messages) {
-          if (window.stopRequested) {
+          if (stopRequestedRef.current) {
             addLog('Stopped by user.', 'warning');
-            stopRequested = true;
             break;
           }
 
@@ -114,7 +111,7 @@ function App() {
           await new Promise(r => setTimeout(r, 1200));
         }
 
-        if (stopRequested) break;
+        if (stopRequestedRef.current) break;
         await new Promise(r => setTimeout(r, 2000));
       } catch (err) {
         addLog(`API Error: ${err.message}`, 'error');
@@ -123,12 +120,10 @@ function App() {
     }
 
     setIsRunning(false);
-    window.stopRequested = false;
   };
 
   const stopPurge = () => {
-    window.stopRequested = true;
-    setIsRunning(false);
+    stopRequestedRef.current = true;
   };
 
   return (
